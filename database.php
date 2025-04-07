@@ -8,14 +8,16 @@ class JSONDatabase {
         $this->loadData();
     }
 
-    private function loadData() {
+    private function loadData(): void
+    {
         if (!file_exists($this->file)) {
             file_put_contents($this->file, '[]');
         }
         $this->data = json_decode(file_get_contents($this->file), true);
     }
 
-    private function saveData() {
+    private function saveData(): void
+    {
         file_put_contents($this->file, json_encode($this->data, JSON_PRETTY_PRINT));
     }
 
@@ -30,7 +32,8 @@ class JSONDatabase {
         return $record;
     }
 
-    public function delete($id) {
+    public function delete($id): void
+    {
         $this->data = array_filter($this->data, function($item) use ($id) {
             return $item['id'] !== $id;
         });
@@ -38,7 +41,7 @@ class JSONDatabase {
     }
 }
 
-$db = new JSONDatabase('users.json');
+$db = new JSONDatabase('/data/users.json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['delete'])) {
@@ -55,4 +58,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $users = $db->getAll();
-?>

@@ -64,7 +64,7 @@
 <?php endif; ?>
 
 <h3>Структура JSON-файла:</h3>
-<pre><?= file_get_contents('users.json') ?></pre>
+<pre><?= file_get_contents('/data/users.json') ?></pre>
 
 <br>
 
